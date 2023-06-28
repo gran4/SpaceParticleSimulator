@@ -40,29 +40,22 @@ pair<double, double> addgravvelocityfeild(double x, double y, double ox, double 
     double ix = x - ox;
     double iy = y - oy;
     double dist = sqrt(ix*ix + iy*iy);
-    //cout << dist << endl;
+
     if (dist == 0)
     {
-        //cout << '-' << endl;
-        //printf("%s \n", "____________________2");;
-        return make_pair(0, 0);
-        
+        return make_pair(0, 0);   
     }
-    //cout << dist << endl;
             
     double div = attraction / dist;
-    //cout << div << endl;
-
     double vx = ((x - ox) * div);
     double vy = ((y - oy) * div);
-    //cout << vx << ';' << vy << '|' << '2' << endl;
 
     return make_pair(vx, vy);
 }
 
-vector<vector<vector<double> > > velocityfeild(vector<vector<double> > gmap, int worldsize[2], int chunk_size, vector<vector<vector<double> > > defalt)
+vector<vector<vector<double> > > velocityfeild(vector<vector<double> > gmap, int worldsize[2], int chunk_size, vector<vector<vector<double> > > Default)
 {
-    vector<vector<vector<double> > > out = defalt;
+    vector<vector<vector<double> > > out = Default;
     pair<double, double> temp;
     double half = chunk_size * .5;
     
@@ -75,13 +68,9 @@ vector<vector<vector<double> > > velocityfeild(vector<vector<double> > gmap, int
             {
                 for (int a = 0; a < gmap[0].size(); a++)
                 {
-                    //cout << x << ',' << y << endl;
-                    //cout << gmap[i][a] << endl;
                     pair<double, double> temp = addgravvelocityfeild(x, y, i, a, gmap[i][a], chunk_size);
                     out[x][y][0] += temp.first * -.0000001;
                     out[x][y][1] += temp.second * -.0000001;
-                    //cout << temp.first << ';' << temp.second << '|' << '2' << endl;
-                    //cout << gmap[i][a] << ':' << temp.first << ',' << temp.second << endl;
                 }
             }
         }
@@ -172,11 +161,8 @@ vector<vector<vector<int> > > change_map(vector<vector<vector<int> > > map)
                     out[x][y].push_back(map[x+1][y-1][i]);
                 }
             }
-
-            
         }
     }
-
     return(out);
 }
 
